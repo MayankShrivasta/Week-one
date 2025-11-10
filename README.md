@@ -1,23 +1,35 @@
 # Week-one
 # Problem Statemnt :- 
-This project uses the YOLO (You Only Look Once) algorithm for detecting cars and other vehicles in images and videos. YOLO is a fast and efficient real-time object detection model that identifies multiple objects within an image by drawing bounding boxes around them along with their class labels.
+Here is a concise summary of "Fruit Images for Object Detection" for your exam review:
 
-The main components of the project are:
+Task: Object detection is Classification + Localization. It's harder than simple classification because the model must output both a class label (e.g., "apple") and a bounding box ([x, y, w, h]) for every fruit in the image, not just one label for the whole image.
 
-A deep learning model based on YOLO architecture, pretrained on a large dataset and fine-tuned with the Kaggle "Car Object Detection Dataset for YOLO" which contains labeled images of vehicles.
+Why Fruit? It's a classic problem because it clearly demonstrates all the key challenges:
 
-Inputs are images (typically resized to a fixed size like 608x608 pixels).
+Occlusion: A leaf covering an apple.
 
-Outputs include bounding boxes around detected vehicles and the classification of those objects (car, bus, etc.).
+Scale Variation: A tiny grape and a large watermelon in the same frame.
 
-Transfer learning is used to leverage pretrained YOLO weights, reducing the training time and enhancing accuracy.
+Clutter: A fruit bowl with many overlapping objects.
 
-Implemented in Python using TensorFlow/Keras frameworks.
+Intra-Class Variation: Red apples, green apples, sliced apples.
 
-The robustness of YOLO allows real-time detection and tracking for applications such as autonomous driving, traffic analysis, and smart city monitoring.
+Why Not MLPs? Standard Multilayer Perceptrons (MLPs) are terrible for this. They require "flattening" the 2D image into a 1D vector, which destroys all spatial information (what's next to what). They are also not translation invariant (an apple in a new spot is seen as a new pattern).
 
-Users need to download the pretrained YOLO weights file (yolo.h5) separately to run the model.
+The Solution: Convolutional Neural Networks (CNNs). These are the correct type of feedforward network for images. They use convolution layers to preserve spatial info and learn hierarchical features. This is a perfect example of Representation Learning:
 
-The project includes Jupyter notebooks for training and testing, with sample images to evaluate performance.
+Layer 1: Learns edges, colors.
 
-DataSet Link :- https://www.kaggle.com/datasets/kindamashal/car-object-detection-dataset-for-yolo
+Layer 2: Learns textures, simple shapes (like "round").
+
+Layer 3: Learns objects (like "apple").
+
+Key Algorithms:
+
+Two-Stage (e.g., Faster R-CNN): "Propose regions, then classify." Very accurate but slow.
+
+One-Stage (e.g., YOLO): "Look once, predict all." Very fast (real-time) but can be less accurate on small/crowded objects.
+
+Data: Requires annotated images. For every image.jpg, you need a label file (image.xml) that lists the ground-truth class and bounding box for every single fruit.
+
+DataSet Link :- https://www.kaggle.com/datasets/mbkinaci/fruit-images-for-object-detection
